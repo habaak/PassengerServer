@@ -1,11 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var DB_users = require('../DB_module/DB_users');
-var sql = require()
+var sql = require('../DB_module/sql')
 var oracledb = require('oracledb');
 
-
-
+/* GET users listing. */
+router.get('/', function(req, res, next) {
+  res.send('respond with a resource');
+});
 
 router.post('/join', function(req, res){
 	var values = {};
@@ -13,7 +15,7 @@ router.post('/join', function(req, res){
 	values.name = req.body.name;
 	values.pw = req.body.pw;
 	values.age = req.body.age;
-    values.gender = req.body.gender;
+  values.gender = req.body.gender;
 
 	if (values.pw == values.pwd) {
 		DB_users.join(values, function(data){
@@ -27,3 +29,5 @@ router.post('/join', function(req, res){
 		res.json({"isSuccess" : 0, "message" : "비밀번호가 일치하지 않습니다."});
 	}
 });
+
+module.exports = router;
